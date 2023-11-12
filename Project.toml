@@ -15,7 +15,6 @@ RadialPiecewisePolynomials = "7dab568b-3cf7-4f91-a977-b4631dfca174"
 SemiclassicalOrthogonalPolynomials = "291c01f3-23f6-4eb6-aeb0-063a639b53f2"
 
 [compat]
-AlternatingDirectionImplicit = "0.0.1"
 ClassicalOrthogonalPolynomials = "0.11"
 ForwardDiff = "0.10"
 LaTeXStrings = "1"
