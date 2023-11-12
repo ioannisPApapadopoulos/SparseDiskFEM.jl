@@ -2,7 +2,7 @@
 
 julia_version = "1.9.2"
 manifest_format = "2.0"
-project_hash = "b38041bd6ac860ca3af679ddb2360faf9548d119"
+project_hash = "fbe2017d249e80474075221677e81e823143f2fc"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -20,9 +20,7 @@ version = "1.5.0"
 
 [[deps.AlternatingDirectionImplicit]]
 deps = ["Elliptic", "HypergeometricFunctions", "LinearAlgebra"]
-git-tree-sha1 = "ccb35c8f8966e5277283e86e13463be28b0000c1"
-repo-rev = "main"
-repo-url = "https://github.com/dlfivefifty/AlternatingDirectionImplicit.jl.git"
+path = "C:\\Users\\john.papad\\.julia\\dev\\AlternatingDirectionImplicit"
 uuid = "15a50297-6c96-42f2-b429-f639dcf4c52e"
 version = "0.0.1"
 
@@ -960,9 +958,7 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.RadialPiecewisePolynomials]]
 deps = ["AnnuliOrthogonalPolynomials", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HypergeometricFunctions", "LazyArrays", "LinearAlgebra", "Memoization", "MultivariateOrthogonalPolynomials", "PiecewiseOrthogonalPolynomials", "QuasiArrays", "SemiclassicalOrthogonalPolynomials", "SpecialFunctions", "StaticArrays"]
-git-tree-sha1 = "4e010d896ec170674a86636ac5ffbd38ad73b1b1"
-repo-rev = "main"
-repo-url = "https://github.com/ioannisPApapadopoulos/RadialPiecewisePolynomials.jl.git"
+path = "C:\\Users\\john.papad\\.julia\\dev\\RadialPiecewisePolynomials"
 uuid = "7dab568b-3cf7-4f91-a977-b4631dfca174"
 version = "0.0.1"
 
