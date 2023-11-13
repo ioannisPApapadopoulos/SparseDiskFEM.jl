@@ -2,7 +2,10 @@ module SparseDiskFEM
 
 using RadialPiecewisePolynomials, LaTeXStrings, Plots, PyPlot, DelimitedFiles
 
-export plot, cylinder_plot_save, slice_plot, @L_str, writedlm
+export plot, cylinder_plot_save, slice_plot, @L_str, writedlm,
+        write_adi_vals
+
+include("adi.jl")
 
 function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[]) where T
     PyPlot.rc("font", family="serif", size=14)
@@ -64,18 +67,6 @@ end
 function plot(θs::AbstractVector, rs::AbstractVector, vals::AbstractVector; ρ::T=0.0, ttl=[]) where T
     _plot(1, [[θs[1]; 2π]], rs, [hcat(vals[1], vals[1][:,1])], ρ=ρ, ttl=ttl)
     # _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl)
-end
-
-### This helper functions takes in the coordinates and vals and saves the relevant logs
-### to be used with the MATLAB script for plotting solutions on cylinders
-function cylinder_plot_save(xy::Matrix{<:RadialCoordinate}, z::AbstractArray, vals::AbstractMatrix, path="src/plotting/")
-    writedlm(path*"z.log", z)
-    r = [xy[i,1].r for i in 1:size(xy,1)]
-    writedlm(path*"r.log", r)
-    θ = [xy[1,j].θ for j in 1:size(xy,2)]
-    writedlm(path*"theta.log", θ)
-    
-    writedlm(path*"vals.log", reshape(vals, length(r), length(θ), length(z))) 
 end
 
 ## slice plot
