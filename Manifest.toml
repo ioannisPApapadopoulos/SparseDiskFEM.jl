@@ -1,8 +1,8 @@
 # This file is machine-generated - editing it directly is not advised
 
-julia_version = "1.9.2"
+julia_version = "1.9.4"
 manifest_format = "2.0"
-project_hash = "fbe2017d249e80474075221677e81e823143f2fc"
+project_hash = "05424e194ed2b327bfc07feff731f052af54fec4"
 
 [[deps.AbstractFFTs]]
 deps = ["LinearAlgebra"]
@@ -20,15 +20,17 @@ version = "1.5.0"
 
 [[deps.AlternatingDirectionImplicit]]
 deps = ["Elliptic", "HypergeometricFunctions", "LinearAlgebra"]
-path = "C:\\Users\\john.papad\\.julia\\dev\\AlternatingDirectionImplicit"
+path = "/Home/varioper/papadopoulos/.julia/dev/AlternatingDirectionImplicit"
 uuid = "15a50297-6c96-42f2-b429-f639dcf4c52e"
 version = "0.0.1"
 
 [[deps.AnnuliOrthogonalPolynomials]]
 deps = ["BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HarmonicOrthogonalPolynomials", "LazyArrays", "LinearAlgebra", "MultivariateOrthogonalPolynomials", "QuasiArrays", "SemiclassicalOrthogonalPolynomials", "StaticArrays"]
-git-tree-sha1 = "62070edaf6cf7991fa77cb315c895901210ae531"
+git-tree-sha1 = "296d11f933b156bcec93a21fa9a49f6a90c2b540"
+repo-rev = "ContinuumArrays-v0.17"
+repo-url = "https://github.com/JuliaApproximation/AnnuliOrthogonalPolynomials.jl.git"
 uuid = "de1797fd-24c3-4035-91a2-b52aecdcfb01"
-version = "0.0.2"
+version = "0.0.3"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -49,9 +51,9 @@ uuid = "56f22d72-fd6d-98f1-02f0-08ddc0907c33"
 
 [[deps.BandedMatrices]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra", "PrecompileTools"]
-git-tree-sha1 = "e63330a7d2dcc6245514d9035f4fab798ea6ca74"
+git-tree-sha1 = "67bcff3f50026b6fa952721525d3a04f0570d432"
 uuid = "aae01518-5342-5314-be14-df237901396f"
-version = "1.2.0"
+version = "1.2.1"
 weakdeps = ["SparseArrays"]
 
     [deps.BandedMatrices.extensions]
@@ -61,9 +63,9 @@ weakdeps = ["SparseArrays"]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
 
 [[deps.BitFlags]]
-git-tree-sha1 = "43b1a4a8f797c1cddadf60499a8a077d4af2cd2d"
+git-tree-sha1 = "2dc09997850d68179b69dafb58ae806167a32b1b"
 uuid = "d1d4a3ce-64b1-5f1a-9ba4-7e7e69966f35"
-version = "0.1.7"
+version = "0.1.8"
 
 [[deps.BlockArrays]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra"]
@@ -101,9 +103,11 @@ version = "0.5.1"
 
 [[deps.ClassicalOrthogonalPolynomials]]
 deps = ["ArrayLayouts", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ContinuumArrays", "DomainSets", "FFTW", "FastGaussQuadrature", "FastTransforms", "FillArrays", "HypergeometricFunctions", "InfiniteArrays", "InfiniteLinearAlgebra", "IntervalSets", "LazyArrays", "LazyBandedMatrices", "LinearAlgebra", "QuasiArrays", "SpecialFunctions"]
-git-tree-sha1 = "eab4e8d732a876ecb749111ea0b67f6494e9aca3"
+git-tree-sha1 = "128db309cf2bf8435ef6eb7102944f4a2fd867a7"
+repo-rev = "main"
+repo-url = "https://github.com/JuliaApproximation/ClassicalOrthogonalPolynomials.jl.git"
 uuid = "b30e2e7b-c4ee-47da-9d5f-2c5c27239acd"
-version = "0.11.10"
+version = "0.12.0"
 
 [[deps.CodecZlib]]
 deps = ["TranscodingStreams", "Zlib_jll"]
@@ -173,9 +177,9 @@ version = "2.3.0"
 
 [[deps.Conda]]
 deps = ["Downloads", "JSON", "VersionParsing"]
-git-tree-sha1 = "8c86e48c0db1564a1d49548d3515ced5d604c408"
+git-tree-sha1 = "51cab8e982c5b598eea9c8ceaced4b58d9dd37c9"
 uuid = "8f4d0f93-b110-5947-807f-2305c1781a2d"
-version = "1.9.1"
+version = "1.10.0"
 
 [[deps.ConstructionBase]]
 deps = ["LinearAlgebra"]
@@ -190,9 +194,9 @@ weakdeps = ["IntervalSets", "StaticArrays"]
 
 [[deps.ContinuumArrays]]
 deps = ["AbstractFFTs", "ArrayLayouts", "BandedMatrices", "BlockArrays", "DomainSets", "FillArrays", "InfiniteArrays", "Infinities", "IntervalSets", "LazyArrays", "LinearAlgebra", "QuasiArrays", "StaticArrays"]
-git-tree-sha1 = "184fc05188fe95fd38092e41c54d6a6a88a54784"
+git-tree-sha1 = "1c7c481b1fcf73d7cad9424e6f19930506d1133a"
 uuid = "7ae1f121-cc2c-504b-ac30-9b923412ae5c"
-version = "0.16.4"
+version = "0.17.0"
 
     [deps.ContinuumArrays.extensions]
     ContinuumArraysMakieExt = "Makie"
@@ -254,9 +258,9 @@ version = "0.9.3"
 
 [[deps.DomainSets]]
 deps = ["CompositeTypes", "IntervalSets", "LinearAlgebra", "Random", "StaticArrays", "Statistics"]
-git-tree-sha1 = "51b4b84d33ec5e0955b55ff4b748b99ce2c3faa9"
+git-tree-sha1 = "32c810efb5987bb4a5b6299525deaef8698d1919"
 uuid = "5b8099bc-c8ec-5219-889f-1d9e522a28bf"
-version = "0.6.7"
+version = "0.7.1"
 
 [[deps.Downloads]]
 deps = ["ArgTools", "FileWatching", "LibCURL", "NetworkOptions"]
@@ -324,9 +328,9 @@ version = "1.0.0"
 
 [[deps.FastTransforms]]
 deps = ["AbstractFFTs", "FFTW", "FastGaussQuadrature", "FastTransforms_jll", "FillArrays", "GenericFFT", "Libdl", "LinearAlgebra", "Reexport", "SpecialFunctions", "ToeplitzMatrices"]
-git-tree-sha1 = "f94fc5c92c3d118bc5636375ededfd93347a73e5"
+git-tree-sha1 = "eb1e9008c65979e13d918d52c2a7d61c5890cda8"
 uuid = "057dd010-8810-581a-b7be-e3fc3b93f78c"
-version = "0.15.11"
+version = "0.15.15"
 
 [[deps.FastTransforms_jll]]
 deps = ["Artifacts", "CompilerSupportLibraries_jll", "FFTW_jll", "JLLWrappers", "LLVMOpenMP_jll", "Libdl", "MPFR_jll", "OpenBLAS_jll", "Pkg"]
@@ -458,9 +462,9 @@ version = "2.8.1+1"
 
 [[deps.HarmonicOrthogonalPolynomials]]
 deps = ["BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "InfiniteArrays", "IntervalSets", "LinearAlgebra", "QuasiArrays", "SpecialFunctions", "StaticArrays"]
-git-tree-sha1 = "8b22f7beebe7792526a739719629880f1e7bcde3"
+git-tree-sha1 = "1083f823c93faccdf0188ee22943e4fbd09d5582"
 uuid = "e416a80e-9640-42f3-8df8-80a93ca01ea5"
-version = "0.5.2"
+version = "0.5.3"
 
 [[deps.HypergeometricFunctions]]
 deps = ["DualNumbers", "LinearAlgebra", "OpenLibm_jll", "SpecialFunctions"]
@@ -589,9 +593,9 @@ version = "0.16.1"
 
 [[deps.LazyArrays]]
 deps = ["ArrayLayouts", "FillArrays", "LinearAlgebra", "MacroTools", "MatrixFactorizations", "SparseArrays"]
-git-tree-sha1 = "c2751b04c877a101a94f5749043651d7e4c81069"
+git-tree-sha1 = "08d56555410b0683cd7b48bff37aa59cbb0ea908"
 uuid = "5078a376-72f3-5289-bfd5-ec5146d43c02"
-version = "1.8.1"
+version = "1.8.2"
 weakdeps = ["StaticArrays"]
 
     [deps.LazyArrays.extensions]
@@ -610,12 +614,12 @@ version = "0.9.3"
 [[deps.LibCURL]]
 deps = ["LibCURL_jll", "MozillaCACerts_jll"]
 uuid = "b27032c2-a3e7-50c8-80cd-2d36dbcbfd21"
-version = "0.6.3"
+version = "0.6.4"
 
 [[deps.LibCURL_jll]]
 deps = ["Artifacts", "LibSSH2_jll", "Libdl", "MbedTLS_jll", "Zlib_jll", "nghttp2_jll"]
 uuid = "deac9b47-8bc7-5906-a0fe-35ac56dc84c0"
-version = "7.84.0+0"
+version = "8.4.0+0"
 
 [[deps.LibGit2]]
 deps = ["Base64", "NetworkOptions", "Printf", "SHA"]
@@ -624,7 +628,7 @@ uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
 [[deps.LibSSH2_jll]]
 deps = ["Artifacts", "Libdl", "MbedTLS_jll"]
 uuid = "29816b5a-b9ab-546f-933c-edad1886dfa8"
-version = "1.10.2+0"
+version = "1.11.0+1"
 
 [[deps.Libdl]]
 uuid = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
@@ -770,9 +774,9 @@ version = "2022.10.11"
 
 [[deps.MultivariateOrthogonalPolynomials]]
 deps = ["ArrayLayouts", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HarmonicOrthogonalPolynomials", "InfiniteArrays", "InfiniteLinearAlgebra", "LazyArrays", "LazyBandedMatrices", "LinearAlgebra", "QuasiArrays", "SpecialFunctions", "StaticArrays", "Test"]
-git-tree-sha1 = "20a65d77ba76c491d3bc0f7e3f3d1ba8dbfb4cc8"
+git-tree-sha1 = "4df7a9ea9c1a3c53ebbbadd63a63e919b043c6f1"
 uuid = "4f6956fd-4f93-5457-9149-7bfc4b2ce06d"
-version = "0.6.3"
+version = "0.6.4"
 
 [[deps.NaNMath]]
 deps = ["OpenLibm_jll"]
@@ -842,9 +846,9 @@ version = "2.8.0"
 
 [[deps.PiecewiseOrthogonalPolynomials]]
 deps = ["ArrayLayouts", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "FillArrays", "InfiniteArrays", "InfiniteLinearAlgebra", "LazyArrays", "LazyBandedMatrices", "LinearAlgebra", "MatrixFactorizations", "QuasiArrays"]
-git-tree-sha1 = "cd05b8ad3ca7ae2c98513fdcb8e71f7132b65350"
+git-tree-sha1 = "2b0ea29276e6561e2504e803104ec7fbd766d746"
 uuid = "4461d12d-4663-4550-8580-cb764c85e20f"
-version = "0.2.4"
+version = "0.2.5"
 
 [[deps.Pipe]]
 git-tree-sha1 = "6842804e7867b115ca9de748a0cf6b364523c16d"
@@ -958,7 +962,7 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.RadialPiecewisePolynomials]]
 deps = ["AnnuliOrthogonalPolynomials", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HypergeometricFunctions", "LazyArrays", "LinearAlgebra", "Memoization", "MultivariateOrthogonalPolynomials", "PiecewiseOrthogonalPolynomials", "QuasiArrays", "SemiclassicalOrthogonalPolynomials", "SpecialFunctions", "StaticArrays"]
-path = "C:\\Users\\john.papad\\.julia\\dev\\RadialPiecewisePolynomials"
+path = "/Home/varioper/papadopoulos/.julia/dev/RadialPiecewisePolynomials"
 uuid = "7dab568b-3cf7-4f91-a977-b4631dfca174"
 version = "0.0.1"
 
@@ -1007,11 +1011,9 @@ version = "1.2.1"
 
 [[deps.SemiclassicalOrthogonalPolynomials]]
 deps = ["ArrayLayouts", "BandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "FillArrays", "HypergeometricFunctions", "InfiniteArrays", "InfiniteLinearAlgebra", "LazyArrays", "LinearAlgebra", "QuasiArrays", "SpecialFunctions"]
-git-tree-sha1 = "62892bc984afb0980bf398dcb4db1e0380f4aeb7"
-repo-rev = "contiguous"
-repo-url = "https://github.com/TSGut/SemiclassicalOrthogonalPolynomials.jl.git"
+git-tree-sha1 = "a3e771f2967a325cf28056f3aeadc91832cb34d6"
 uuid = "291c01f3-23f6-4eb6-aeb0-063a639b53f2"
-version = "0.5.3"
+version = "0.5.4"
 
 [[deps.SemiseparableMatrices]]
 deps = ["ArrayLayouts", "BandedMatrices", "BlockBandedMatrices", "LazyArrays", "LazyBandedMatrices", "LinearAlgebra", "MatrixFactorizations"]
@@ -1065,10 +1067,10 @@ version = "2.3.1"
     ChainRulesCore = "d360d2e6-b24c-11e9-a2a3-2a2ae2dbcce4"
 
 [[deps.StaticArrays]]
-deps = ["LinearAlgebra", "Random", "StaticArraysCore"]
-git-tree-sha1 = "0adf069a2a490c47273727e029371b31d44b72b2"
+deps = ["LinearAlgebra", "PrecompileTools", "Random", "StaticArraysCore"]
+git-tree-sha1 = "5ef59aea6f18c25168842bded46b16662141ab87"
 uuid = "90137ffa-7385-5640-81b9-e52037218182"
-version = "1.6.5"
+version = "1.7.0"
 weakdeps = ["Statistics"]
 
     [deps.StaticArrays.extensions]
@@ -1160,9 +1162,9 @@ version = "0.4.1"
 
 [[deps.Unitful]]
 deps = ["Dates", "LinearAlgebra", "Random"]
-git-tree-sha1 = "a72d22c7e13fe2de562feda8645aa134712a87ee"
+git-tree-sha1 = "242982d62ff0d1671e9029b52743062739255c7e"
 uuid = "1986cc42-f94f-5a68-af5c-568840ba703d"
-version = "1.17.0"
+version = "1.18.0"
 
     [deps.Unitful.extensions]
     ConstructionBaseUnitfulExt = "ConstructionBase"
@@ -1208,9 +1210,9 @@ version = "1.25.0+0"
 
 [[deps.XML2_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libiconv_jll", "Zlib_jll"]
-git-tree-sha1 = "24b81b59bd35b3c42ab84fa589086e19be919916"
+git-tree-sha1 = "da69178aacc095066bad1f69d2f59a60a1dd8ad1"
 uuid = "02c8fc9c-b97f-50b9-bbe4-9be30ff0a78a"
-version = "2.11.5+0"
+version = "2.12.0+0"
 
 [[deps.XSLT_jll]]
 deps = ["Artifacts", "JLLWrappers", "Libdl", "Libgcrypt_jll", "Libgpg_error_jll", "Libiconv_jll", "Pkg", "XML2_jll", "Zlib_jll"]
@@ -1453,7 +1455,7 @@ version = "1.1.6+0"
 [[deps.nghttp2_jll]]
 deps = ["Artifacts", "Libdl"]
 uuid = "8e850ede-7688-5339-a07c-302acd2aaf8d"
-version = "1.48.0+0"
+version = "1.52.0+1"
 
 [[deps.p7zip_jll]]
 deps = ["Artifacts", "Libdl"]
