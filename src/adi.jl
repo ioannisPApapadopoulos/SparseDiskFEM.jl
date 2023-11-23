@@ -170,3 +170,75 @@ function adi_2_modaltrav(Ψ::FiniteZernikeBasis{T}, P::Legendre{T}, Us::Abstract
     end
     return Y
 end
+
+function disk_tensor_transform(Ψ::FiniteZernikeBasis{T}, v𝐳::AbstractVector{T}, rhs_xyz::Function, N::Int) where T
+    Nₕ = length(Ψ.points) - 1
+    @assert Nₕ == 2
+    X = [zeros(sum(1:N), lastindex(v𝐳)) for i in 1:Nₕ]
+    for (i, z) in zip(1:lastindex(v𝐳), v𝐳)
+        rhs_Z(xy) = rhs_xyz(xy, z)
+        X[1][:,i], X[2][:,i] =  list_2_modaltrav(Ψ, Ψ \ rhs_Z.(axes(Ψ,1)))
+    end
+    X
+end
+
+function _synthesis_error_transform(Ψ, zFsP::AbstractVector, 𝐳p::AbstractVector{T}, rhs_xyz::Function, N::Int) where T
+    # Epand out in disk basis via synthesis operators
+    errs, vals, rs, θs, vals_errs = [], [], [], [], []
+    for (i, z) in zip(1:lastindex(𝐳p), 𝐳p)
+        (θs, rs, valss) = finite_plotvalues(Ψ, zFsP[i], N=N)
+        rhs_Z(xy) = rhs_xyz(xy, z)
+        vals_err, err = inf_error(Ψ, θs, rs, valss, rhs_Z) # Check inf-norm errors on the grid
+        append!(errs, [err])
+        append!(vals, [valss])
+        append!(vals_errs, [vals_err])
+    end
+    vals, rs, θs, vals_errs, errs
+end
+
+function synthesis_error_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, rhs_xyz::Function, N::Int, Nz::Int) where T 
+    Nₕ = length(Ψ.points) - 1
+    # Expand out in interval basis at points 𝐳p
+    FsP = [Fs[k] * P[𝐳p, Block.(1:Nz)]' for k in 1:Nₕ]
+    zFsP = []
+    for i in 1:lastindex(𝐳p)
+        append!(zFsP, [modaltrav_2_list(Ψ, [FsP[k][:,i] for k in 1:Nₕ])])
+    end
+    _synthesis_error_transform(Ψ, zFsP, 𝐳p, rhs_xyz, 150)
+end
+
+
+function synthesis_error_transform(Φ::FiniteContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, u_xyz::Function, N::Int, Nz::Int) where T 
+    UsP = [Us[i] * Q[𝐳p, Block.(1:Nz)]' for i in 1:2N-1]
+    zUm = adi_2_list(Φ, Q, UsP, 𝐳p, N=N)
+    _synthesis_error_transform(Φ, zUm, 𝐳p, u_xyz, 150)
+end
+
+
+function _synthesis_transform(Ψ, zFsP, 𝐳p::AbstractVector{T}, N::Int) where T
+    # Epand out in disk basis via synthesis operators
+    vals, rs, θs = [], [], []
+    for (i, z) in zip(1:lastindex(𝐳p), 𝐳p)
+        (θs, rs, valss) = finite_plotvalues(Ψ, zFsP[i], N=N)
+        rhs_Z(xy) = rhs_xyz(xy, z)
+        append!(vals, [valss])
+    end
+    vals, rs, θs
+end
+
+function synthesis_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
+    Nₕ = length(Ψ.points) - 1
+    # Expand out in interval basis at points 𝐳p
+    FsP = [Fs[k] * P[𝐳p, Block.(1:Nz)]' for k in 1:Nₕ]
+    zFsP = []
+    for i in 1:lastindex(𝐳p)
+        append!(zFsP, [modaltrav_2_list(Ψ, [FsP[k][:,i] for k in 1:Nₕ])])
+    end
+    _synthesis_transform(Ψ, zFsP, 𝐳p, 150)
+end
+
+function synthesis_transform(Φ::FiniteContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
+    UsP = [Us[i] * Q[𝐳p, Block.(1:Nz)]' for i in 1:2N-1]
+    zUm = adi_2_list(Φ, Q, UsP, 𝐳p, N=N)
+    _synthesis_transform(Φ, zUm, 𝐳p, 150)
+end

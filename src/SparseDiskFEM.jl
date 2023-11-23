@@ -8,7 +8,8 @@ import MultivariateOrthogonalPolynomials: ModalTrav
 
 export plot, cylinder_plot_save, slice_plot, @L_str, writedlm, zplot,
         write_adi_vals,
-        list_2_modaltrav, modaltrav_2_list, adi_2_modaltrav, adi_2_list
+        list_2_modaltrav, modaltrav_2_list, adi_2_modaltrav, adi_2_list,
+        disk_tensor_transform, synthesis_error_transform, synthesis_transform
 
 include("adi.jl")
 
