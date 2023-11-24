@@ -11,6 +11,7 @@ function cylinder_plot_save(xy::Matrix{<:RadialCoordinate}, z::AbstractArray, va
 end
 
 function write_adi_vals(𝐳p, rs, θs, vals; path="src/plotting/")
+    !isdir(path) && mkdir(path)
     Nₕ = length(rs)
     valrθz = [zeros(length(rs[k]), length(θs[k]), length(𝐳p)) for k in 1:Nₕ]
     for k in 1:Nₕ

@@ -197,7 +197,7 @@ write_adi_vals(𝐳p, rs, θs, vals_u)
 errors = readdlm("errors-adi.log")
 avgJs = readdlm("Js-adi.log")
 
-ps = 5:5:N
+ps = 2 .* (5:5:N)
 Plots.plot(ps, errors,
     linewidth=3,
     marker=:dot,

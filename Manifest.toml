@@ -20,15 +20,15 @@ version = "1.5.0"
 
 [[deps.AlternatingDirectionImplicit]]
 deps = ["Elliptic", "HypergeometricFunctions", "LinearAlgebra"]
-path = "/Home/varioper/papadopoulos/.julia/dev/AlternatingDirectionImplicit"
+git-tree-sha1 = "ba7452d8732a7ff567fc95d63169bb130109868b"
+repo-rev = "main"
+repo-url = "https://github.com/ioannisPApapadopoulos/AlternatingDirectionImplicit.jl.git"
 uuid = "15a50297-6c96-42f2-b429-f639dcf4c52e"
 version = "0.0.1"
 
 [[deps.AnnuliOrthogonalPolynomials]]
 deps = ["BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HarmonicOrthogonalPolynomials", "LazyArrays", "LinearAlgebra", "MultivariateOrthogonalPolynomials", "QuasiArrays", "SemiclassicalOrthogonalPolynomials", "StaticArrays"]
 git-tree-sha1 = "296d11f933b156bcec93a21fa9a49f6a90c2b540"
-repo-rev = "main"
-repo-url = "https://github.com/JuliaApproximation/AnnuliOrthogonalPolynomials.jl.git"
 uuid = "de1797fd-24c3-4035-91a2-b52aecdcfb01"
 version = "0.0.3"
 
@@ -104,8 +104,6 @@ version = "0.5.1"
 [[deps.ClassicalOrthogonalPolynomials]]
 deps = ["ArrayLayouts", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ContinuumArrays", "DomainSets", "FFTW", "FastGaussQuadrature", "FastTransforms", "FillArrays", "HypergeometricFunctions", "InfiniteArrays", "InfiniteLinearAlgebra", "IntervalSets", "LazyArrays", "LazyBandedMatrices", "LinearAlgebra", "QuasiArrays", "SpecialFunctions"]
 git-tree-sha1 = "128db309cf2bf8435ef6eb7102944f4a2fd867a7"
-repo-rev = "main"
-repo-url = "https://github.com/JuliaApproximation/ClassicalOrthogonalPolynomials.jl.git"
 uuid = "b30e2e7b-c4ee-47da-9d5f-2c5c27239acd"
 version = "0.12.0"
 
@@ -962,7 +960,9 @@ uuid = "3fa0cd96-eef1-5676-8a61-b3b8758bbffb"
 
 [[deps.RadialPiecewisePolynomials]]
 deps = ["AnnuliOrthogonalPolynomials", "BandedMatrices", "BlockArrays", "BlockBandedMatrices", "ClassicalOrthogonalPolynomials", "ContinuumArrays", "DomainSets", "FastTransforms", "FillArrays", "HypergeometricFunctions", "LazyArrays", "LinearAlgebra", "Memoization", "MultivariateOrthogonalPolynomials", "PiecewiseOrthogonalPolynomials", "QuasiArrays", "SemiclassicalOrthogonalPolynomials", "SpecialFunctions", "StaticArrays"]
-path = "/Home/varioper/papadopoulos/.julia/dev/RadialPiecewisePolynomials"
+git-tree-sha1 = "ba23f2a340801d6bdf1899d54c27a70828ee34c8"
+repo-rev = "main"
+repo-url = "https://github.com/ioannisPApapadopoulos/RadialPiecewisePolynomials.jl.git"
 uuid = "7dab568b-3cf7-4f91-a977-b4631dfca174"
 version = "0.0.1"
 
