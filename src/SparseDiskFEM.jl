@@ -9,9 +9,27 @@ import MultivariateOrthogonalPolynomials: ModalTrav
 export plot, cylinder_plot_save, slice_plot, @L_str, writedlm, readdlm, zplot,
         write_adi_vals,
         list_2_modaltrav, modaltrav_2_list, adi_2_modaltrav, adi_2_list, adi,
-        disk_tensor_transform, synthesis_error_transform, synthesis_transform
+        disk_tensor_transform, synthesis_error_transform, synthesis_transform,
+        zero_dirichlet_bcs
 
 include("adi.jl")
+
+function zero_dirichlet_bcs(Φ::ContinuousZernike{T}, Mf::AbstractVector{<:AbstractVector}) where T
+    @assert length(Mf) == 2*Φ.N-1
+    Fs = Φ.Fs
+    zero_dirichlet_bcs.(Fs, Mf)
+end
+
+function zero_dirichlet_bcs(Φ::ContinuousZernikeMode{T}, Mf::AbstractVector) where T
+    points = Φ.points
+    K = length(points)-1
+    if !(first(points) ≈  0)
+        Mf[1] = zero(T)
+        Mf[K+1] = zero(T)
+    else
+        Mf[K] = zero(T)
+    end
+end
 
 function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[]) where T
     PyPlot.rc("font", family="serif", size=14)

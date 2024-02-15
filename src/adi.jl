@@ -95,7 +95,7 @@ function modaltrav_2_list(Φ::ContinuousZernike{T}, u::AbstractArray{Vector{T}})
     return cs
 end
 
-function adi_2_modaltrav(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T}) where T
+function adi_2_modaltrav(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:ClassicalOrthogonalPolynomials.Jacobi}, Us::AbstractArray, z::AbstractArray{T}) where T
     N, points = Φ.N, Φ.points
     K = length(points) - 1
     Ns, _, _ = _getMs_ms_js(N)
@@ -167,7 +167,7 @@ function _adi_2_list(Φ::ContinuousZernike{T}, Us::AbstractArray, z::AbstractArr
     pad(append!(hats, vec(bubbles')), axes(F,2))
 end
 
-adi_2_list(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
+adi_2_list(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:ClassicalOrthogonalPolynomials.Jacobi}, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
 adi_2_list(Φ::ContinuousZernike{T}, Q::ContinuousPolynomial, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
 
 

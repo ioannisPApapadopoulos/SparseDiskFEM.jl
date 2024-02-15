@@ -36,12 +36,17 @@ end
 
 axis([-1.1 1.1 -1.1 1.1 -1.1 1.1])
 daspect([1 1 1])
-%view(caz, cel);
-set(gca, 'Position', [0.2 0.25 0.6 0.6], 'CameraViewAngleMode', 'Manual', 'FontSize', 25)
-colorbar('FontSize', 16, 'Position', [0.84 0.09 0.04 0.8])
+view(50, 25);
+%set(gca, 'Position', [0.2 0.25 0.6 0.6], 'CameraViewAngleMode', 'Manual', 'FontSize', 25)
+set(gcf, 'Position',  [700, 200, 90, 800]),
+set(gca, 'FontSize', 22)
+colorbar('FontSize', 16, 'Position', [0.9 0.09 0.04 0.8])
 axis on
 xlabel("$x$", "FontSize", 40, 'Interpreter','latex')
 ylabel("$y$", "FontSize", 40, 'Interpreter','latex')
 zlabel("$z$", "FontSize", 40, 'Interpreter','latex')
+xticks([-1,-0.5,0,0.5,1])
+yticks([-1,-0.5,0,0.5,1])
+zticks([-1,-0.5,0,0.5,1])
 cmap = getPyPlot_cMap('bwr');
 colormap(cmap)

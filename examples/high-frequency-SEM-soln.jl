@@ -5,7 +5,10 @@ import AnnuliPDEs: pad, ZernikeITransform
 import ClassicalOrthogonalPolynomials: affine
 
 """
+This script computes the reference SEM solution for high-frequency.jl
 
+This script is not documented, for more examples on how to use SEM methods
+go to AnnuluPDEs.jl: https://github.com/ioannisPApapadopoulos/AnnuliPDEs.jl
 """
 
 ρ = 0.5
@@ -99,6 +102,4 @@ for k in 1:lastindex(points)-2
     append!(vals, [-(F[θs[k],1:size(X,2)]*(T[rs[k],1:size(X,1)]*X)')'])
 end
 
-
-
-JLD.save("high-frequency-soln.jld", "vals", vals)
+JLD.save("examples/data/high-frequency-SEM-ref-soln.jld", "vals", vals)
