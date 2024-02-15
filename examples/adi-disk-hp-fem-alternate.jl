@@ -1,17 +1,15 @@
 using RadialPiecewisePolynomials, PiecewiseOrthogonalPolynomials
 using ClassicalOrthogonalPolynomials, LinearAlgebra
-using AlternatingDirectionImplicit
-using SparseDiskFEM, Plots, PyPlot # plotting routines
-import ForwardDiff: derivative
-using DelimitedFiles
+using SparseDiskFEM
+using Plots, PyPlot
 
 ρ, N, Nz = 0.5, 60, 60
 points = [0;ρ;1]
 Nₕ = length(points) - 1
 
 # Disk FEM basis 
-Φ = FiniteContinuousZernike(N, points);
-Ψ = FiniteZernikeBasis(N, points, 0, 0);
+Φ = ContinuousZernike(N, points);
+Ψ = ZernikeBasis(N, points, 0, 0);
 
 r = range(-1, 1; length=3)
 Nzₕ = length(r)-1
@@ -118,12 +116,12 @@ for i in 1:2N-1
 
     # weak form for RHS
     fp = zeros(size(G[i],2), size(pG,2))
-    for j in 1:n fp[:,j] = zFs[j][i] end
+    for j in 1:N fp[:,j] = zFs[j][i] end
     F_rhs = Matrix(G[i])*fp*pG'  # RHS <f,v>
     F_rhs[Nₕ, :] .= 0; # disk bcs
     F_rhs[:, 1] .=0; F_rhs[:, Nzₕ+1] .= 0; # interval bcs
 
-    X = adi(Mn[i], -tpM, Kn[i], tpA, F_rhs, a, b, c, d, tolerance=1e-15)
+    X = adi(M[i], -tpM, K[i], tpA, F_rhs, a, b, c, d, tolerance=1e-15)
 
     U = (pL' \ (pL \ X'))'
     append!(Us, [U])

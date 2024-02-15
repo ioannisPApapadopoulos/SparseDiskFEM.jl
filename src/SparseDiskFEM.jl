@@ -1,14 +1,14 @@
 module SparseDiskFEM
 
 using ClassicalOrthogonalPolynomials, PiecewiseOrthogonalPolynomials, RadialPiecewisePolynomials, 
-    MultivariateOrthogonalPolynomials, LaTeXStrings, Plots, PyPlot, DelimitedFiles
+    MultivariateOrthogonalPolynomials, LaTeXStrings, Plots, PyPlot, DelimitedFiles, Elliptic
 
 import RadialPiecewisePolynomials: _getMs_ms_js, Fill, blockedrange
 import MultivariateOrthogonalPolynomials: ModalTrav
 
-export plot, cylinder_plot_save, slice_plot, @L_str, writedlm, zplot,
+export plot, cylinder_plot_save, slice_plot, @L_str, writedlm, readdlm, zplot,
         write_adi_vals,
-        list_2_modaltrav, modaltrav_2_list, adi_2_modaltrav, adi_2_list,
+        list_2_modaltrav, modaltrav_2_list, adi_2_modaltrav, adi_2_list, adi,
         disk_tensor_transform, synthesis_error_transform, synthesis_transform
 
 include("adi.jl")
@@ -47,17 +47,17 @@ function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVe
     display(gcf())
 end
 
-function plot(F::FiniteContinuousZernike{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[],K=0) where T
+function plot(F::ContinuousZernike{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[],K=0) where T
     K = K ==0 ? lastindex(F.points)-1 : K
     _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl, vminmax=vminmax)
 end
 
-function plot(F::FiniteContinuousZernikeMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
+function plot(F::ContinuousZernikeMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
     K = K ==0 ? lastindex(Z.points)-1 : K
     _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl)
 end
 
-function plot(Z::FiniteZernikeBasis{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
+function plot(Z::ZernikeBasis{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
     K = K ==0 ? lastindex(Z.points)-1 : K
     _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl)
 end

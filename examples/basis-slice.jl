@@ -24,26 +24,26 @@ end
 for (n, m) in zip([0,1], [0,1])
 # n,m=1,1
     xx = range(-0.5,0.5,200)
-    plot(xx, disk_bubbles.(n, m, xx ./ 0.5),
+    Plots.plot(xx, disk_bubbles.(n, m, xx ./ 0.5),
         linewidth = 2,
         label=L"B^{K_0}_{%$n,%$m,1}(x,y)")
 
     xx = [range(-1,-0.5,100), range(0.5,1,100)]
-    plot!(xx, [annulus_bubbles.(0.5, n, m, x) for x in xx],
+    Plots.plot!(xx, [annulus_bubbles.(0.5, n, m, x) for x in xx],
         linewidth = 2,
         color=[:red :red],
         label=[L"B^{K_1}_{%$n,%$m,1}(x,y)" ""]
     )
 
     xx = range(-1,1,200)
-    plot!(xx, disk_hat.(0.5, m, xx),
+    Plots.plot!(xx, disk_hat.(0.5, m, xx),
         linewidth = 2,
         linestyle=:dash,
         label=L"H^{K_0, K_1}_{%$m,1}(x,y)"
     )
 
     xx = [range(-1,-0.5,100), range(0.5,1,100)]
-    plot!(xx, [annulus_hat.(0.5, m, x) for x in xx],
+    Plots.plot!(xx, [annulus_hat.(0.5, m, x) for x in xx],
         label=[L"H^{K_1, \bullet}_{%$m,1}(x,y)" ""],
         xlabel = L"r",
         ylabel = L"y",
@@ -58,13 +58,13 @@ for (n, m) in zip([0,1], [0,1])
         legend_hfactor = 1.1,
         extra_kwargs=:subplot
     )
-    vline!([-0.5,0.5], label="", color=:black, linewidth=2)
+    Plots.vline!([-0.5,0.5], label="", color=:black, linewidth=2)
     Plots.savefig("bubble-hats-slice-m-$m.pdf")
 
 
 
     xx = range(-0.5,0.5,200)
-    p = plot(xx, [disk_bubbles.(N, m, xx ./ 0.5) for N in n:2:(n+4)],
+    p = Plots.plot(xx, [disk_bubbles.(N, m, xx ./ 0.5) for N in n:2:(n+4)],
         xlabel = L"r",
         ylabel = L"y",
         xlabelfontsize=15, ylabelfontsize=15,
@@ -81,6 +81,6 @@ for (n, m) in zip([0,1], [0,1])
         margin=2Plots.mm,
         label=[L"B^{K_0}_{%$n,%$m,1}(x,y)" L"B^{K_0}_{%$(n+2),%$m,1}(x,y)" L"B^{K_0}_{%$(n+4),%$m,1}(x,y)" L"B^{K_0}_{%$(n+6),%$m,1}(x,y)"]
         )
-    vline!([-0.5,0.5], color=:black, linewidth=2, label="")
+    Plots.vline!([-0.5,0.5], color=:black, linewidth=2, label="")
     Plots.savefig("bubble-slice-m-$m.pdf")
 end

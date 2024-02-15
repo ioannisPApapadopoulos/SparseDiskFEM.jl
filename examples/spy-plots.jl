@@ -4,7 +4,7 @@ using Plots
 N = 41
 K = 3 # number of cells
 points = range(0,1,K+1)
-F = FiniteContinuousZernike(N, points)
+F = ContinuousZernike(N, points)
 F0 = F.Fs[1];
 
 

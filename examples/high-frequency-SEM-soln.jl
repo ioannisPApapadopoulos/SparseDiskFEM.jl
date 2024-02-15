@@ -51,22 +51,11 @@ n = 300
 # Expand RHS in Zernike polynomials for the disk element
 fz = Zd[:, Block.(1:n)] \ f_scale.(x,y)
 
-# nup = last(findall(x->abs(x) > 2*eps(), maximum(ModalTrav(fz).matrix, dims=2)))[1]
-# nuf = last(findall(x->abs(x) > 2*eps(), maximum(ModalTrav(fz).matrix, dims=1)'))[1] / 2
-
 # Solve by breaking down into solves for each Fourier mode.
 # We utilise a tau-method to enforce the boundary conditions
 # and continuity.
 X, u = chebyshev_fourier_zernike_helmholtz_modal_solve([(T,F), Z], f, fz, ρ, n, [(Lₜ, M, R, D), Δs], [[], Ls], λs)
 
-# ps = maximum(X, dims=2)
-# fs = maximum(X, dims=1)'
-
-# np = last(findall(x->abs(x) > 2*eps(), ps))[1]
-# nf = last(findall(x->abs(x) > 2*eps(), fs))[1] / 2
-
-# nup = last(findall(x->abs(x) > 2*eps(), maximum(ModalTrav(u).matrix, dims=2)))[1]
-# nuf = last(findall(x->abs(x) > 2*eps(), maximum(ModalTrav(u).matrix, dims=1)'))[1] / 2
 
 cells = 11
 u_ = pad(u, axes(Z,2))[Block.(1:n)]
@@ -113,10 +102,3 @@ end
 
 
 JLD.save("high-frequency-soln.jld", "vals", vals)
-
-
-
-
-
-
-

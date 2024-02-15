@@ -1,3 +1,53 @@
+# These 4 routines from ADI were lifted from Kars' M4R repo.
+function mobius(z, a, b, c, d, α)
+    t₁ = a*(-α*b + b + α*c + c) - 2b*c
+    t₂ = a*(α*(b+c) - b + c) - 2α*b*c
+    t₃ = 2a - (α+1)*b + (α-1)*c
+    t₄ = -α*(-2a+b+c) - b + c
+
+    (t₁*z + t₂)/(t₃*z + t₄)
+end
+
+# elliptick(z) = convert(eltype(α),π)/2*HypergeometricFunctions._₂F₁(one(α)/2,one(α)/2,1, z)
+function ADI_shifts(J, a, b, c, d, tol=1e-15)
+    γ = (c-a)*(d-b)/((c-b)*(d-a))
+    α = -1 + 2γ + 2√Complex(γ^2 - γ)
+    α = Real(α)
+
+    # K = elliptick(1-1/big(α)^2)
+    if α < 1e7
+        K = Elliptic.K(1-1/α^2)
+        dn = Elliptic.Jacobi.dn.((2*(0:J-1) .+ 1)*K/(2J), 1-1/α^2)
+    else
+        K = 2log(2)+log(α) + (-1+2log(2)+log(α))/α^2/4
+        m1 = 1/α^2
+        u = (1/2:J-1/2) * K/J
+        dn = @. sech(u) + m1/4 * (sinh(u)cosh(u) + u) * tanh(u) * sech(u)
+    end
+
+    [mobius(-α*i, a, b, c, d, α) for i = dn], [mobius(α*i, a, b, c, d, α) for i = dn]
+end
+
+function adi(A::AbstractMatrix{T}, B::AbstractMatrix{T}, C::AbstractMatrix{T}, D::AbstractMatrix{T}, F::AbstractMatrix{T}, a::T, b::T, c::T, d::T; tolerance=1e-15) where T
+    X = zeros((size(A,1), size(B,1)))
+
+    γ = (c-a)*(d-b)/((c-b)*(d-a))
+    J = Int(ceil(log(16γ)*log(4/tolerance)/π^2))
+
+    p, q = ADI_shifts(J, a, b, c, d, tolerance)
+
+    for j = 1:J
+        X = ((A/p[j] - C)*X - F/p[j])/(D - B/p[j])
+        X = (C - A/q[j])\(X*(B/q[j] - D) - F/q[j])
+    end
+
+    X
+end
+adi(A::AbstractMatrix{T}, B::AbstractMatrix{T}, C::AbstractMatrix{T}, F::AbstractMatrix{T}, a::T, b::T, c::T, d::T; tolerance=1e-15) where T =
+    adi(A,B,C,C,F,a,b,c,d,tolerance=tolerance)
+
+
+
 ### This helper functions takes in the coordinates and vals and saves the relevant logs
 ### to be used with the MATLAB script for plotting solutions on cylinders
 function cylinder_plot_save(xy::Matrix{<:RadialCoordinate}, z::AbstractArray, vals::AbstractMatrix, path="src/plotting/")
@@ -28,7 +78,7 @@ function write_adi_vals(𝐳p, rs, θs, vals; path="src/plotting/")
 end
 
 
-function modaltrav_2_list(Φ::FiniteContinuousZernike{T}, u::AbstractArray{Vector{T}}) where T
+function modaltrav_2_list(Φ::ContinuousZernike{T}, u::AbstractArray{Vector{T}}) where T
     N, points = Φ.N, Φ.points
     K = length(points) - 1
     Ns, _, _ = _getMs_ms_js(N)
@@ -45,7 +95,7 @@ function modaltrav_2_list(Φ::FiniteContinuousZernike{T}, u::AbstractArray{Vecto
     return cs
 end
 
-function adi_2_modaltrav(Φ::FiniteContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T}) where T
+function adi_2_modaltrav(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T}) where T
     N, points = Φ.N, Φ.points
     K = length(points) - 1
     Ns, _, _ = _getMs_ms_js(N)
@@ -70,7 +120,7 @@ function axes_Φ(N, points)
     blockedrange(Vcat(length(points), Fill(length(points) - 1, N-2)))
 end
 
-function _adi_2_list(Φ::FiniteContinuousZernike{T}, Us::AbstractArray, z::AbstractArray{T}; N=0) where T
+function _adi_2_list(Φ::ContinuousZernike{T}, Us::AbstractArray, z::AbstractArray{T}; N=0) where T
     points = Φ.points
     K = length(points) - 1
 
@@ -117,13 +167,13 @@ function _adi_2_list(Φ::FiniteContinuousZernike{T}, Us::AbstractArray, z::Abstr
     pad(append!(hats, vec(bubbles')), axes(F,2))
 end
 
-adi_2_list(Φ::FiniteContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
-adi_2_list(Φ::FiniteContinuousZernike{T}, Q::ContinuousPolynomial, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
+adi_2_list(Φ::ContinuousZernike{T}, wQ::Weighted{<:Any, <:Jacobi}, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
+adi_2_list(Φ::ContinuousZernike{T}, Q::ContinuousPolynomial, Us::AbstractArray, z::AbstractArray{T};N=0) where T = _adi_2_list(Φ, Us, z, N=N)
 
 
 
 ## Coefficient storage conversion
-function list_2_modaltrav(Ψ::FiniteZernikeBasis{T}, u::AbstractArray) where T
+function list_2_modaltrav(Ψ::ZernikeBasis{T}, u::AbstractArray) where T
     N, points = Ψ.N, Ψ.points
     K = length(points) - 1
     U = [zeros(T, N ÷ 2, 2N-1) for i in 1:K]
@@ -136,7 +186,7 @@ function list_2_modaltrav(Ψ::FiniteZernikeBasis{T}, u::AbstractArray) where T
     return ModalTrav.(U)
 end
 
-function modaltrav_2_list(Ψ::FiniteZernikeBasis{T}, u::AbstractArray{Vector{T}}) where T
+function modaltrav_2_list(Ψ::ZernikeBasis{T}, u::AbstractArray{Vector{T}}) where T
     N, points = Ψ.N, Ψ.points
     K = length(points) - 1
     Ns, _, _ = _getMs_ms_js(N)
@@ -153,7 +203,7 @@ function modaltrav_2_list(Ψ::FiniteZernikeBasis{T}, u::AbstractArray{Vector{T}}
     return cs
 end
 
-function adi_2_modaltrav(Ψ::FiniteZernikeBasis{T}, P::Legendre{T}, Us::AbstractArray, z::AbstractArray{T}) where T
+function adi_2_modaltrav(Ψ::ZernikeBasis{T}, P::Legendre{T}, Us::AbstractArray, z::AbstractArray{T}) where T
     N, points = Ψ.N, Ψ.points
     K = length(points) - 1
     Ns, _, _ = _getMs_ms_js(N)
@@ -172,7 +222,7 @@ function adi_2_modaltrav(Ψ::FiniteZernikeBasis{T}, P::Legendre{T}, Us::Abstract
     return Y
 end
 
-function disk_tensor_transform(Ψ::FiniteZernikeBasis{T}, v𝐳::AbstractVector{T}, rhs_xyz::Function, N::Int) where T
+function disk_tensor_transform(Ψ::ZernikeBasis{T}, v𝐳::AbstractVector{T}, rhs_xyz::Function, N::Int) where T
     Nₕ = length(Ψ.points) - 1
     @assert Nₕ == 2
     X = [zeros(sum(1:N), lastindex(v𝐳)) for i in 1:Nₕ]
@@ -197,7 +247,7 @@ function _synthesis_error_transform(Ψ, zFsP::AbstractVector, 𝐳p::AbstractVec
     vals, rs, θs, vals_errs, errs
 end
 
-function synthesis_error_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, rhs_xyz::Function, N::Int, Nz::Int) where T 
+function synthesis_error_transform(Ψ::ZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, rhs_xyz::Function, N::Int, Nz::Int) where T 
     Nₕ = length(Ψ.points) - 1
     # Expand out in interval basis at points 𝐳p
     FsP = [Fs[k] * P[𝐳p, Block.(1:Nz)]' for k in 1:Nₕ]
@@ -209,7 +259,7 @@ function synthesis_error_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolyn
 end
 
 
-function synthesis_error_transform(Φ::FiniteContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, u_xyz::Function, N::Int, Nz::Int) where T 
+function synthesis_error_transform(Φ::ContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, u_xyz::Function, N::Int, Nz::Int) where T 
     UsP = [Us[i] * Q[𝐳p, Block.(1:Nz)]' for i in 1:2N-1]
     zUm = adi_2_list(Φ, Q, UsP, 𝐳p, N=N)
     _synthesis_error_transform(Φ, zUm, 𝐳p, u_xyz, 150)
@@ -227,7 +277,7 @@ function _synthesis_transform(Ψ, zFsP, 𝐳p::AbstractVector{T}, N::Int) where 
     vals, rs, θs
 end
 
-function synthesis_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
+function synthesis_transform(Ψ::ZernikeBasis{T}, P::ContinuousPolynomial{0}, Fs::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
     Nₕ = length(Ψ.points) - 1
     # Expand out in interval basis at points 𝐳p
     FsP = [Fs[k] * P[𝐳p, Block.(1:Nz)]' for k in 1:Nₕ]
@@ -238,7 +288,7 @@ function synthesis_transform(Ψ::FiniteZernikeBasis{T}, P::ContinuousPolynomial{
     _synthesis_transform(Ψ, zFsP, 𝐳p, 150)
 end
 
-function synthesis_transform(Φ::FiniteContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
+function synthesis_transform(Φ::ContinuousZernike{T}, Q::ContinuousPolynomial{1}, Us::AbstractVector{<:AbstractMatrix{<:T}}, 𝐳p::AbstractVector{T}, N::Int, Nz::Int) where T 
     UsP = [Us[i] * Q[𝐳p, Block.(1:Nz)]' for i in 1:2N-1]
     zUm = adi_2_list(Φ, Q, UsP, 𝐳p, N=N)
     _synthesis_transform(Φ, zUm, 𝐳p, 150)

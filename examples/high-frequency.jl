@@ -1,7 +1,7 @@
 using RadialPiecewisePolynomials, LinearAlgebra
 using PyPlot, Plots
 using JLD
-using SparseDiskFEM # plotting routines
+using SparseDiskFEM
 
 ρ = 0.5
 λ(r) = r ≤ ρ ? -80^2 : -90^2
@@ -19,8 +19,8 @@ s = ρ^(-1/11)
 points = [0; reverse([s^(-j) for j in 0:11])]
 K = length(points)-1
 N=200;
-@time Φ = FiniteContinuousZernike(N, points);
-@time Ψ = FiniteZernikeBasis(N, points, 0, 0);
+@time Φ = ContinuousZernike(N, points);
+@time Ψ = ZernikeBasis(N, points, 0, 0);
 
 x = axes(Ψ,1)
 
@@ -28,7 +28,7 @@ fz = Ψ \ f.(x);
 (θs, rs, vals) = finite_plotvalues(Ψ, fz, N=800);
 vals_, err = inf_error(Ψ, θs, rs, vals, f); # Check inf-norm errors on the grid
 err
-plot(Ψ, θs, rs, vals, ttl=L"f(x,y)")
+SparseDiskFEM.plot(Ψ, θs, rs, vals, ttl=L"f(x,y)")
 PyPlot.savefig("high-frequency-rhs.png", dpi=500)
 slice_plot(162, θs, rs, vals, points, ylabel=L"$f(x,y)$")
 Plots.savefig("high-frequency-rhs-slice.pdf")
@@ -66,16 +66,16 @@ u = A .\ Mf
 # u = L .\ (U .\ Mf)
 
 (θs, rs, vals) = finite_plotvalues(Φ, u, N=800)
-plot(Φ, θs, rs, vals, ttl=L"u(x,y)") # plot
+SparseDiskFEM.plot(Φ, θs, rs, vals, ttl=L"u(x,y)") # plot
 PyPlot.savefig("high-frequency-sol.png", dpi=500)
 slice_plot(162, θs, rs, vals, points, ylabel=L"$u(x,y)$")
 Plots.savefig("high-frequency-sol-slice.pdf")
 
 (θs, rs, vals_fine) = finite_plotvalues(Φ, u, N=300)
-vals_ref = JLD.load("examples-paper/high-frequency-soln.jld")["vals"]
+vals_ref = JLD.load("high-frequency-soln.jld")["vals"]
 
 maximum(norm.(vals_fine .- vals_ref, Inf))
-
+    
 
 errors_ref = []
 errors_fine = []

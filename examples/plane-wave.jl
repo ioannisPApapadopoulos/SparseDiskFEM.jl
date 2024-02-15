@@ -55,19 +55,19 @@ points = [0; reverse([s^(-j) for j in 0:9])]
 Nₕ = length(points)-1
 
 
-# Ψ = FiniteZernikeBasis(1000, [0.0;1.0], 0, 0);
+# Ψ = ZernikeBasis(1000, [0.0;1.0], 0, 0);
 # fp = Ψ \ rhs_xy.(axes(Ψ,1));
 # (θs, rs, vals) = finite_plotvalues(Ψ, fp)
 # _, err = inf_error(Ψ, θs, rs, vals, rhs_xy);
 # err
 
-Φ = FiniteContinuousZernike(150, points);
-Ψ = FiniteZernikeBasis(150, points, 0, 0);
+Φ = ContinuousZernike(150, points);
+Ψ = ZernikeBasis(150, points, 0, 0);
 fz = Ψ \ rhs_xy.(axes(Ψ,1));
 (θs, rs, vals) = finite_plotvalues(Ψ, fz, N=300)
 vals_, err = inf_error(Ψ, θs, rs, vals, rhs_xy);
 err
-plot(Ψ, θs, rs, vals, ttl=L"f(x,y)")
+SparseDiskFEM.plot(Ψ, θs, rs, vals, ttl=L"f(x,y)")
 PyPlot.savefig("plane-wave-rhs.png", dpi=500)
 slice_plot(60, θs, rs, vals, points, ylabel=L"$f(x,y)$")
 Plots.savefig("plane-wave-rhs-slice.pdf")
@@ -99,7 +99,7 @@ for N in 20:10:150
     print("Computed coefficients for N=$N \n")
 end
 
-plot(Φ, θs, rs, vals, ttl=L"u(x,y)") # plot
+SparseDiskFEM.plot(Φ, θs, rs, vals, ttl=L"u(x,y)") # plot
 PyPlot.savefig("plane-wave-sol.png", dpi=500)
 slice_plot(60, θs, rs, vals, points, ylabel=L"$u(x,y)$")
 Plots.savefig("plane-wave-sol-slice.pdf")

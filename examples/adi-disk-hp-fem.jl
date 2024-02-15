@@ -1,17 +1,15 @@
 using RadialPiecewisePolynomials, PiecewiseOrthogonalPolynomials
 using ClassicalOrthogonalPolynomials, LinearAlgebra
-using AlternatingDirectionImplicit
 using SparseDiskFEM, Plots, PyPlot # plotting routines
 import ForwardDiff: derivative
-using DelimitedFiles
 
 ρ, N, Nz = 0.5, 60, 60
 points = [0;ρ;1]
 Nₕ = length(points) - 1
 
 # Disk FEM basis 
-Φ = FiniteContinuousZernike(N, points);
-Ψ = FiniteZernikeBasis(N, points, 0, 0);
+Φ = ContinuousZernike(N, points);
+Ψ = ZernikeBasis(N, points, 0, 0);
 
 r = range(-1, 1; length=3)
 Nzₕ = length(r)-1
@@ -160,6 +158,7 @@ for n in 5 : 5 : N
     append!(avgJs, [sum(Js)/length(Js)])
     vals_u, rs, θs, vals_u_, errs_u = synthesis_error_transform(Φ, Q, nUs, 𝐳p, uₑ_xyz, n, n)
     append!(errors, [maximum(errs_u)])
+    writedlm("errors-adi.log", errors)
     print("   Computed ℓ-∞ error.\n")
 end
 
@@ -197,7 +196,7 @@ write_adi_vals(𝐳p, rs, θs, vals_u)
 errors = readdlm("errors-adi.log")
 avgJs = readdlm("Js-adi.log")
 
-ps = 2 .* (5:5:N)
+ps = (5:5:N)
 Plots.plot(ps, errors,
     linewidth=3,
     marker=:dot,

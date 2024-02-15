@@ -12,13 +12,13 @@ Here we pick:
     u₀(x,y) = eigenfunction. 
 """
 
-function zero_dirichlet_bcs(Φ::FiniteContinuousZernike{T}, Mf::AbstractVector{<:AbstractVector}) where T
+function zero_dirichlet_bcs(Φ::ContinuousZernike{T}, Mf::AbstractVector{<:AbstractVector}) where T
     @assert length(Mf) == 2*Φ.N-1
     Fs = Φ.Fs #_getFs(Φ.N, Φ.points)
     zero_dirichlet_bcs.(Fs, Mf)
 end
 
-function zero_dirichlet_bcs(Φ::FiniteContinuousZernikeMode{T}, Mf::AbstractVector) where T
+function zero_dirichlet_bcs(Φ::ContinuousZernikeMode{T}, Mf::AbstractVector) where T
     points = Φ.points
     K = length(points)-1
     if !(first(points) ≈  0)
@@ -38,7 +38,7 @@ end
 points = [0; [50*1.2^(-n) for n in 15:-1:0]]; K = length(points)-1;
 Kp = 8
 # points = [0.0; 40.0]; K = length(points)-1
-N=100; Φ = FiniteContinuousZernike(N, points);
+N=100; Φ = ContinuousZernike(N, points);
 
 
 V(r²) = r² # quadratic well
@@ -74,7 +74,7 @@ evs = [E.values[2:end] for E in Es];
 # err
 # SparseDiskFEM.plot(Φ, θs, rs, vals, K=3)
 
-# Ψ = FiniteZernikeBasis(N, points, 0, 0)
+# Ψ = ZernikeBasis(N, points, 0, 0)
 # v = Ψ \ ψ.(axes(Ψ,1))
 # s = transpose.(v) .* (M .* v)
 

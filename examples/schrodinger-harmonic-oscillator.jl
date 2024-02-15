@@ -12,13 +12,13 @@ Here we pick:
     u₀(x,y) = eigenfunction. 
 """
 
-function zero_dirichlet_bcs(Φ::FiniteContinuousZernike{T}, Mf::AbstractVector{<:AbstractVector}) where T
+function zero_dirichlet_bcs(Φ::ContinuousZernike{T}, Mf::AbstractVector{<:AbstractVector}) where T
     @assert length(Mf) == 2*Φ.N-1
     Fs = Φ.Fs #_getFs(Φ.N, Φ.points)
     zero_dirichlet_bcs.(Fs, Mf)
 end
 
-function zero_dirichlet_bcs(Φ::FiniteContinuousZernikeMode{T}, Mf::AbstractVector) where T
+function zero_dirichlet_bcs(Φ::ContinuousZernikeMode{T}, Mf::AbstractVector) where T
     points = Φ.points
     K = length(points)-1
     if !(first(points) ≈  0)
@@ -44,7 +44,7 @@ end
 points = [0; [50*1.2^(-n) for n in 15:-1:0]]; K = length(points)-1;
 Kp = 8
 # points = [0.0; 40.0]; K = length(points)-1
-N=100; Φ = FiniteContinuousZernike(N, points);
+N=100; Φ = ContinuousZernike(N, points);
 
 
 V(r²) = r² # quadratic well
@@ -219,14 +219,14 @@ Plots.savefig("schrodinger-l2norm.pdf")
 # ffmpeg -framerate 8 -i %d.png -pix_fmt yuv420p out.mp4
 
 
-Ψ = FiniteZernikeBasis(700, [0.0;50.0], 0, 0);
+Ψ = ZernikeBasis(700, [0.0;50.0], 0, 0);
 u0z = Ψ \ u0.(axes(Ψ,1));
 (θs, rs, vals) = finite_plotvalues(Ψ, u0z, N=1000);
 vals_, err = inf_error(Ψ, θs, rs, vals, u0)
 err
 plot(Ψ, θs, rs, vals,  ttl=L"u^{(0)}(x,y)")
 
-Φ = FiniteContinuousZernike(700, [0.0;50.0]);
+Φ = ContinuousZernike(700, [0.0;50.0]);
 u0ϕ = Φ \ u0.(axes(Ψ,1));
 (θs, rs, vals) = finite_plotvalues(Φ, u0ϕ);
 vals_, err = inf_error(Φ, θs, rs, vals, u0)
