@@ -8,7 +8,7 @@ We numerically approximate the solution to equations involving fractional Laplac
 
 This package heavily utilises RadialPiecewisePolynomials.jl for its implementation of a sparse hp-FEM basis for disks and annuli.
 
-|Figure|File: examples/|
+|Figure(s)|File: examples/|
 |:-:|:-:|
 |1|[spy-plots.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/spy-plots.jl)|
 |2|[adi-disk-hp-fem-alternate.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/adi-disk-hp-fem-alternate.jl)|
@@ -16,7 +16,7 @@ This package heavily utilises RadialPiecewisePolynomials.jl for its implementati
 |6, 7|[plane-wave.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/plane-wave.jl)|
 |8, 9, 10|[high-frequency.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/high-frequency.jl)|
 |11, 12, 13|[schrodinger-harmonic-oscillator.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/schrodinger-harmonic-oscillator.jl)|
-|14, 15[adi-disk-hp-fem.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/adi-disk-hp-fem.jl)|
+|14, 15|[adi-disk-hp-fem.jl](https://github.com/ioannisPApapadopoulos/SparseDiskFEM.jl/blob/main/examples/adi-disk-hp-fem.jl)|
 
 ## Contact
 Ioannis Papadopoulos: papadopoulos@wias-berlin.de
