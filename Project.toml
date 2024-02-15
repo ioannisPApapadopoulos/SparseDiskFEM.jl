@@ -18,7 +18,7 @@ RadialPiecewisePolynomials = "7dab568b-3cf7-4f91-a977-b4631dfca174"
 SemiclassicalOrthogonalPolynomials = "291c01f3-23f6-4eb6-aeb0-063a639b53f2"
 
 [compat]
-AnnuliOrthogonalPolynomials = "=0.0.3"
+AnnuliOrthogonalPolynomials = "=0.0.4"
 ClassicalOrthogonalPolynomials = "=0.12.4"
 DelimitedFiles = "1.9.1"
 Elliptic = "=1.0.1"
