@@ -4,7 +4,7 @@ This repository implements the numerical examples found in:
 
 (1) "A sparse hierarchical hp-finite element method on disks and annuli", Ioannis. P. A. Papadopoulos and Sheehan Olver (2024).
 
-We numerically approximate the solution to equations involving fractional Laplacian operators via frame approach. This approach reduces solving an equation with nonlocal terms to an interpolation problem for the right-hand side. We find expansions via a truncated SVD which alleviates the perceived ill-conditioning.
+We numerically approximate the solutions to variable coefficient Helmholtz and Schrödinger equations on disks and annuli. The hp-FEM is very-high-order, e.g. p=200 but the resulting matrices are sparse.
 
 This package heavily utilises RadialPiecewisePolynomials.jl for its implementation of a sparse hp-FEM basis for disks and annuli.
 
