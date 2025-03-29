@@ -31,7 +31,7 @@ function zero_dirichlet_bcs(Φ::ContinuousZernikeMode{T}, Mf::AbstractVector) wh
     end
 end
 
-function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[]) where T
+function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[], logscale=false) where T
     PyPlot.rc("font", family="serif", size=14)
     rcParams = PyPlot.PyDict(PyPlot.matplotlib["rcParams"])
     rcParams["text.usetex"] = true
@@ -42,8 +42,13 @@ function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVe
     else
         vmin,vmax = vminmax[1], vminmax[2]
     end
-    norm = PyPlot.matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
 
+    if logscale
+        norm = PyPlot.matplotlib.colors.SymLogNorm(linthresh=1, linscale=1,vmin=vmin, vmax=vmax, base=10)
+    else
+        norm = PyPlot.matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
+    end
+    
     if ρ > 0.0
         ax.set_ylim(ρ,1)
         ax.set_rorigin(0)
@@ -65,31 +70,31 @@ function _plot(K::Int, θs::AbstractVector, rs::AbstractVector, vals::AbstractVe
     display(gcf())
 end
 
-function plot(F::ContinuousZernike{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[],K=0) where T
+function plot(F::ContinuousZernike{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], vminmax=[],K=0, logscale=false) where T
     K = K ==0 ? lastindex(F.points)-1 : K
-    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl, vminmax=vminmax)
+    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl, vminmax=vminmax,logscale=logscale)
 end
 
-function plot(F::ContinuousZernikeMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
+function plot(F::ContinuousZernikeMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0, logscale=false) where T
     K = K ==0 ? lastindex(Z.points)-1 : K
-    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl)
+    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl,logscale=logscale)
 end
 
-function plot(Z::ZernikeBasis{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0) where T
+function plot(Z::ZernikeBasis{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], K=0, logscale=false) where T
     K = K ==0 ? lastindex(Z.points)-1 : K
-    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl)
+    _plot(K, θs, rs, vals, ρ=ρ, ttl=ttl,logscale=logscale)
 end
 
-function plot(C::ContinuousZernikeAnnulusElementMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[]) where T
-    _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl)
+function plot(C::ContinuousZernikeAnnulusElementMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], logscale=false) where T
+    _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl,logscale=logscale)
 end
 
-function plot(C::ContinuousZernikeElementMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[]) where T
-    _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl)
+function plot(C::ContinuousZernikeElementMode{T}, θs::AbstractVector, rs::AbstractVector, vals::AbstractVector;ρ::T=0.0, ttl=[], logscale=false) where T
+    _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl,logscale=logscale)
 end
 
-function plot(θs::AbstractVector, rs::AbstractVector, vals::AbstractVector; ρ::T=0.0, ttl=[]) where T
-    _plot(1, [[θs[1]; 2π]], rs, [hcat(vals[1], vals[1][:,1])], ρ=ρ, ttl=ttl)
+function plot(θs::AbstractVector, rs::AbstractVector, vals::AbstractVector; ρ::T=0.0, ttl=[], logscale=false) where T
+    _plot(1, [[θs[1]; 2π]], rs, [hcat(vals[1], vals[1][:,1])], ρ=ρ, ttl=ttl,logscale=logscale)
     # _plot(1, θs, rs, vals, ρ=ρ, ttl=ttl)
 end
 
