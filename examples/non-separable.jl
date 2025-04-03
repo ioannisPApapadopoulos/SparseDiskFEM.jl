@@ -7,7 +7,7 @@ import RadialPiecewisePolynomials: _mass_m₀, Fill, _getγs
 
 
 """
-Section 6.FIXME "High frequency with a non-separable Helmholtz coefficient and 
+Section 6.4 "High frequency with a non-separable Helmholtz coefficient and 
 discontinuous right-hand side".
 
 Domain is Ω = {0.01 ≤ r ≤ 1} and we are solving

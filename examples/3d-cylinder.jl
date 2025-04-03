@@ -4,7 +4,7 @@ using SparseDiskFEM, Plots, PyPlot
 import ForwardDiff: derivative
 
 """
-Section 6.4 "Screened Poisson in a 3D cylinder"
+Section 6.6 "Screened Poisson in a 3D cylinder"
 
 Domain is Ω = {0 ≤ r ≤ 1} ∪ [-1,1] and we are solving, via ADI,
     (-Δ + λ(r))u(x,y,z) = f(x,y,z)
