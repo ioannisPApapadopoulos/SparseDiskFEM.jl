@@ -111,7 +111,7 @@ for N in 20:10:200
     Kn = [K[j][1:(n-1)*Nₕ, 1:(n-1)*Nₕ] for (n,j) in zip(Ms,1:lastindex(K))];
     Mfn = [Mf[j][1:(n-1)*Nₕ] for (n,j) in zip(Ms,1:lastindex(Mf))];# right-hand side
     
-    # Solve over each Fourier mode seperately
+    # Solve over each Fourier mode separately
     un = Kn .\ Mfn;
     (θs, rs, vals) = finite_plotvalues(Φ, un, N=300);
 
