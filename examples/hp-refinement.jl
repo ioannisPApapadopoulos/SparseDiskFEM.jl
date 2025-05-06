@@ -29,11 +29,11 @@ function rhs_xy(xy)
     f(r)
 end
 
-g(r) = r*f(r)
-using ClassicalOrthogonalPolynomials
-import ClassicalOrthogonalPolynomials: plan_grid_transform
-x,F = plan_grid_transform(legendre(0..1), 1000)
-F*g.(x)
+# g(r) = r*f(r)
+# using ClassicalOrthogonalPolynomials
+# import ClassicalOrthogonalPolynomials: plan_grid_transform
+# x,F = plan_grid_transform(legendre(0..1), 1000)
+# F*g.(x)
 
 function hp_refinement_solve(points, N; Nc=100)
     Nₕ = length(points)-1
@@ -101,7 +101,6 @@ Plots.savefig("hp-refinement-sol-slice.pdf")
 errors_p, dofs_p = [], []
 points = [0.0;1.0]
 for N in 4:100:1004
-    # Generate graded mesh
     err, u, (θs, rs, vals, vals_) = hp_refinement_solve(points, N, Nc=N+100)
     push!(errors_p, err)
     push!(dofs_p, sum(length(u[1])))
